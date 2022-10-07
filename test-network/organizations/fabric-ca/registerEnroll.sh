@@ -328,7 +328,7 @@ function createOrg4() {
 
   infoln "Register the org admin"
   set -x
-  fabric-ca-client register --caname ca-org4 --id.name org3admin --id.secret org4adminpw --id.type admin --tls.certfiles ${PWD}/organizations/fabric-ca/org4/tls-cert.pem
+  fabric-ca-client register --caname ca-org4 --id.name org4admin --id.secret org4adminpw --id.type admin --tls.certfiles ${PWD}/organizations/fabric-ca/org4/tls-cert.pem
   { set +x; } 2>/dev/null
 
   mkdir -p organizations/peerOrganizations/org4.example.com/peers
