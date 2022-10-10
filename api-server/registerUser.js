@@ -2,7 +2,7 @@ const { Wallets } = require("fabric-network");
 const FabricCAServices = require('fabric-ca-client');
 
 const { buildCAClient, registerAndEnrollUser, enrollAdmin } = require("./CAUtil")
-const { buildCCPOrg1, buildCCPOrg2, buildWallet, buildCCPOrg3 } = require("./AppUtils");
+const { buildCCPOrg1, buildCCPOrg2, buildWallet, buildCCPOrg3, buildCCPOrg4 } = require("./AppUtils");
 const { getCCP } = require("./buildCCP");
 const path=require('path');
 const walletPath=path.join(__dirname,"wallet")

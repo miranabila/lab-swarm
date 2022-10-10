@@ -1,4 +1,4 @@
-const { buildCCPOrg1 ,buildCCPOrg2,buildCCPOrg3} = require("./AppUtils");
+const { buildCCPOrg1 ,buildCCPOrg2,buildCCPOrg3,buildCCPOrg4} = require("./AppUtils");
 
 exports.getCCP = (org) => {
     let ccp;
@@ -11,6 +11,9 @@ exports.getCCP = (org) => {
             break;
         case 3:
             ccp = buildCCPOrg3();
+            break;
+        case 4:
+            ccp = buildCCPOrg4();
             break;
     }
     return ccp;
