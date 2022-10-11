@@ -45,17 +45,17 @@ Organizations:
                 Rule: "OR('OrdererMSP.member')"
 
         OrdererEndpoints:
-            - orderer.example.com:7050
+            - orderer.coedinus.com:7050
 
-    - &Org1
+    - &Petani
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Org1MSP
+        Name: PetaniMSP
 
         # ID to load the MSP definition as
-        ID: Org1MSP
+        ID: PetaniMSP
 
-        MSPDir: ../organizations/peerOrganizations/org1.example.com/msp
+        MSPDir: ../organizations/peerOrganizations/petani.coedinus.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -63,34 +63,34 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('Org1MSP.member')"
+                Rule: "OR('PetaniMSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('Org1MSP.member')"
+                Rule: "OR('PetaniMSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('Org1MSP.admin')"
+                Rule: "OR('PetaniMSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('Org1MSP.peer')"
+                Rule: "OR('PetaniMSP.peer')"
 
         # leave this flag set to true.
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.org1.example.com
+            - Host: peer0.petani.coedinus.com
               Port: 7051
 
-    - &Org2
+    - &Pengepul
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Org2MSP
+        Name: PengepulMSP
 
         # ID to load the MSP definition as
-        ID: Org2MSP
+        ID: PengepulMSP
 
-        MSPDir: ../organizations/peerOrganizations/org2.example.com/msp
+        MSPDir: ../organizations/peerOrganizations/pengepul.coedinus.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -98,33 +98,33 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('Org2MSP.member')"
+                Rule: "OR('PengepulMSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('Org2MSP.member')"
+                Rule: "OR('PengepulMSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('Org2MSP.admin')"
+                Rule: "OR('PengepulMSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('Org2MSP.peer')"
+                Rule: "OR('PengepulMSP.peer')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.org2.example.com
+            - Host: peer0.pengepul.coedinus.com
               Port: 9051
 
-    - &Org3
+    - &Distributor
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Org3MSP
+        Name: DistributorMSP
 
         # ID to load the MSP definition as
-        ID: Org3MSP
+        ID: DistributorMSP
 
-        MSPDir: ../organizations/peerOrganizations/org3.example.com/msp
+        MSPDir: ../organizations/peerOrganizations/distributor.coedinus.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -132,33 +132,33 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('Org3MSP.member')"
+                Rule: "OR('DistributorMSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('Org3MSP.member')"
+                Rule: "OR('DistributorMSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('Org3MSP.admin')"
+                Rule: "OR('DistributorMSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('Org3MSP.peer')"
+                Rule: "OR('DistributorMSP.peer')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.org3.example.com
+            - Host: peer0.distributor.coedinus.com
               Port: 11051
 
-    - &Org4
+    - &Retailer
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Org4MSP
+        Name: RetailerMSP
 
         # ID to load the MSP definition as
-        ID: Org4MSP
+        ID: RetailerMSP
 
-        MSPDir: ../organizations/peerOrganizations/org4.example.com/msp
+        MSPDir: ../organizations/peerOrganizations/retailer.coedinus.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -166,22 +166,22 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('Org4MSP.member')"
+                Rule: "OR('RetailerMSP.member')"
             Writers:
                 Type: Signature
-                Rule: "OR('Org4MSP.member')"
+                Rule: "OR('RetailerMSP.member')"
             Admins:
                 Type: Signature
-                Rule: "OR('Org4MSP.admin')"
+                Rule: "OR('RetailerMSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('Org4MSP.peer')"
+                Rule: "OR('RetailerMSP.peer')"
 
         AnchorPeers:
             # AnchorPeers defines the location of peers which can be used
             # for cross org gossip communication.  Note, this value is only
             # encoded in the genesis block in the Application section context
-            - Host: peer0.org4.example.com
+            - Host: peer0.retailer.coedinus.com
               Port: 13051
 
 
@@ -488,19 +488,19 @@ Profiles:
         Consortiums:
             SampleConsortium:
                 Organizations:
-                    - *Org1
-                    - *Org2
-                    - *Org3
-                    - *Org4
+                    - *Petani
+                    - *Pengepul
+                    - *Distributor
+                    - *Retailer
     TwoOrgsChannel:
         Consortium: SampleConsortium
         <<: *ChannelDefaults
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Org1
-                - *Org2
-                - *Org3
-                - *Org4
+                - *Petani
+                - *Pengepul
+                - *Distributor
+                - *Retailer
             Capabilities:
                 <<: *ApplicationCapabilities

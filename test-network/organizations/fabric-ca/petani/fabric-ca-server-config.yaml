@@ -80,7 +80,7 @@ tls:
 #############################################################################
 ca:
   # Name of this CA
-  name: OrdererCA
+  name: PetaniCA
   # Key file (is only used to import a private key into BCCSP)
   keyfile:
   # Certificate file (default: ca-cert.pem)
@@ -246,6 +246,7 @@ affiliations:
     - department1
   retailer:
     - department1
+
 #############################################################################
 #  Signing section
 #
@@ -304,16 +305,18 @@ signing:
 #     CA certificates though it can still issue end entity certificates.
 ###########################################################################
 csr:
-  cn: ca.orderer.coedinus.com
+  cn: ca.petani.coedinus.com
   names:
     - C: US
-      ST: "New York"
-      L: "New York"
-      O: coedinus.com
+      ST: "North Carolina"
+      L: "Durham"
+      O: petani.coedinus.com
       OU:
   hosts:
     - localhost
-    - coedinus.com
+    - petani.coedinus.com
+    - peer0.petani.coedinus.com
+    -
   ca:
     expiry: 131400h
     pathlength: 1
