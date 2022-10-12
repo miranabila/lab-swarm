@@ -1,0 +1,59 @@
+{
+	"name": "first-network",
+	"version": "1.0.0",
+	"client": {
+		"tlsEnable": true,
+		"adminCredential": {
+			"id": "exploreradmin",
+			"password": "exploreradminpw"
+		},
+		"enableAuthentication": false,
+		"organization": "PetaniMSP",
+		"connection": {
+			"timeout": {
+				"peer": {
+					"endorser": "300"
+				},
+				"orderer": "300"
+			}
+		}
+	},
+	"channels": {
+		"SCMBawang": {
+			"peers": {
+				"peer0.petani.coedinus.com": {}
+			},
+			"connection": {
+				"timeout": {
+					"peer": {
+						"endorser": "6000",
+						"eventHub": "6000",
+						"eventReg": "6000"
+					}
+				}
+			}
+		}
+	},
+	"organizations": {
+		"PetaniMSP": {
+			"mspid": "PetaniMSP",
+			"adminPrivateKey": {
+				"path": "/tmp/crypto/peerOrganizations/petani.coedinus.com/users/Admin@petani.coedinus.com/msp/keystore/PETANI_MSPKEY"
+			},
+			"peers": [
+				"peer0.petani.coedinus.com"
+			],
+			"signedCert": {
+				"path": "/tmp/crypto/peerOrganizations/petani.coedinus.com/users/Admin@petani.coedinus.com/msp/signcerts/cert.pem"
+			}
+		}
+	},
+	"peers": {
+		"peer0.petani.coedinus.com": {
+			"tlsCACerts": {
+				"path": "/tmp/crypto/peerOrganizations/petani.coedinus.com/peers/peer0.petani.coedinus.com/tls/ca.crt"
+			},
+			"url": "grpcs://peer0.petani.coedinus.com:7051"
+		}
+	}
+}

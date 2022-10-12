@@ -1,0 +1,410 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: "3"
+
+volumes:
+  orderercoedinuscom:
+  orderer2coedinuscom:
+  orderer3coedinuscom:
+  orderer4coedinuscom:
+  orderer5coedinuscom:
+  peer0petanicoedinuscom:
+  peer0pengepulcoedinuscom:
+  peer0distributorcoedinuscom:
+  peer0retailercoedinuscom:
+
+networks:
+  test:
+    external:
+      name: test
+
+services:
+  orderercoedinuscom:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == manager
+    container_name: orderer.coedinus.com
+    image: hyperledger/fabric-orderer:2.3
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      # enabled TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - /home/ubuntu/hlf-docker-swarm/test-network/system-genesis-block/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/ordererOrganizations/coedinus.com/orderers/orderer.coedinus.com/msp:/var/hyperledger/orderer/msp
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/ordererOrganizations/coedinus.com/orderers/orderer.coedinus.com/tls/:/var/hyperledger/orderer/tls
+      - orderercoedinuscom:/var/hyperledger/production/orderer
+    ports:
+      - 7050:7050
+    networks:
+      test:
+        aliases:
+          - orderer.coedinus.com
+
+  orderer2coedinuscom:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == manager
+    container_name: orderer2.coedinus.com
+    image: hyperledger/fabric-orderer:2.3
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      # enabled TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - /home/ubuntu/hlf-docker-swarm/test-network/system-genesis-block/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/ordererOrganizations/coedinus.com/orderers/orderer2.coedinus.com/msp:/var/hyperledger/orderer/msp
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/ordererOrganizations/coedinus.com/orderers/orderer2.coedinus.com/tls/:/var/hyperledger/orderer/tls
+      - orderer2coedinuscom:/var/hyperledger/production/orderer
+    ports:
+      - 8050:7050
+    networks:
+      test:
+        aliases:
+          - orderer2.coedinus.com
+
+  orderer3coedinuscom:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == manager
+    container_name: orderer3.coedinus.com
+    image: hyperledger/fabric-orderer:2.3
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      # enabled TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - /home/ubuntu/hlf-docker-swarm/test-network/system-genesis-block/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/ordererOrganizations/coedinus.com/orderers/orderer3.coedinus.com/msp:/var/hyperledger/orderer/msp
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/ordererOrganizations/coedinus.com/orderers/orderer3.coedinus.com/tls/:/var/hyperledger/orderer/tls
+      - orderer3coedinuscom:/var/hyperledger/production/orderer
+    ports:
+      - 9050:7050
+    networks:
+      test:
+        aliases:
+          - orderer3.coedinus.com
+
+  orderer4coedinuscom:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == manager
+    container_name: orderer4.coedinus.com
+    image: hyperledger/fabric-orderer:2.3
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      # enabled TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - /home/ubuntu/hlf-docker-swarm/test-network/system-genesis-block/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/ordererOrganizations/coedinus.com/orderers/orderer4.coedinus.com/msp:/var/hyperledger/orderer/msp
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/ordererOrganizations/coedinus.com/orderers/orderer4.coedinus.com/tls/:/var/hyperledger/orderer/tls
+      - orderer4coedinuscom:/var/hyperledger/production/orderer
+    ports:
+      - 10050:7050
+    networks:
+      test:
+        aliases:
+          - orderer4.coedinus.com
+
+  orderer5coedinuscom:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == manager
+    container_name: orderer5.coedinus.com
+    image: hyperledger/fabric-orderer:2.3
+    environment:
+      - FABRIC_LOGGING_SPEC=INFO
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7050
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      # enabled TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+      - ORDERER_KAFKA_TOPIC_REPLICATIONFACTOR=1
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    volumes:
+      - /home/ubuntu/hlf-docker-swarm/test-network/system-genesis-block/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/ordererOrganizations/coedinus.com/orderers/orderer5.coedinus.com/msp:/var/hyperledger/orderer/msp
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/ordererOrganizations/coedinus.com/orderers/orderer5.coedinus.com/tls/:/var/hyperledger/orderer/tls
+      - orderer5coedinuscom:/var/hyperledger/production/orderer
+    ports:
+      - 11050:7050
+    networks:
+      test:
+        aliases:
+          - orderer5.coedinus.com
+
+  peer0petanicoedinuscom:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == manager
+    container_name: peer0.petani.coedinus.com
+    image: hyperledger/fabric-peer:2.3
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      # the following setting starts chaincode containers on the same
+      # bridge network as the peers
+      # https://docs.docker.com/compose/networking/
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=test
+      - FABRIC_LOGGING_SPEC=INFO
+      #- FABRIC_LOGGING_SPEC=DEBUG
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      # Peer specific variabes
+      - CORE_PEER_ID=peer0.petani.coedinus.com
+      - CORE_PEER_ADDRESS=peer0.petani.coedinus.com:7051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.petani.coedinus.com:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.petani.coedinus.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.petani.coedinus.com:7051
+      - CORE_PEER_LOCALMSPID=PetaniMSP
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_TLS_CLIENTAUTHREQUIRED=false
+    volumes:
+      - /var/run/:/host/var/run/
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/peerOrganizations/petani.coedinus.com/peers/peer0.petani.coedinus.com/msp:/etc/hyperledger/fabric/msp
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/peerOrganizations/petani.coedinus.com/peers/peer0.petani.coedinus.com/tls:/etc/hyperledger/fabric/tls
+      - peer0petanicoedinuscom:/var/hyperledger/production
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 7051:7051
+    networks:
+      test:
+        aliases:
+          - peer0.petani.coedinus.com
+
+  peer0pengepulcoedinuscom:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == worker1
+    container_name: peer0.pengepul.coedinus.com
+    image: hyperledger/fabric-peer:2.3
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      # the following setting starts chaincode containers on the same
+      # bridge network as the peers
+      # https://docs.docker.com/compose/networking/
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=test
+      - FABRIC_LOGGING_SPEC=INFO
+      #- FABRIC_LOGGING_SPEC=DEBUG
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      # Peer specific variabes
+      - CORE_PEER_ID=peer0.pengepul.coedinus.com
+      - CORE_PEER_ADDRESS=peer0.pengepul.coedinus.com:9051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.pengepul.coedinus.com:9052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.pengepul.coedinus.com:9051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.pengepul.coedinus.com:9051
+      - CORE_PEER_LOCALMSPID=PengepulMSP
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_TLS_CLIENTAUTHREQUIRED=false
+    volumes:
+      - /var/run/:/host/var/run/
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.pengepul.coedinus.com/msp:/etc/hyperledger/fabric/msp
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.pengepul.coedinus.com/tls:/etc/hyperledger/fabric/tls
+      - peer0pengepulcoedinuscom:/var/hyperledger/production
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 9051:9051
+    networks:
+      test:
+        aliases:
+          - peer0.pengepul.coedinus.com
+
+  peer0distributorcoedinuscom:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == worker2
+    container_name: peer0.distributor.coedinus.com
+    image: hyperledger/fabric-peer:2.3
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      # the following setting starts chaincode containers on the same
+      # bridge network as the peers
+      # https://docs.docker.com/compose/networking/
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=test
+      - FABRIC_LOGGING_SPEC=INFO
+      #- FABRIC_LOGGING_SPEC=DEBUG
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      # Peer specific variabes
+      - CORE_PEER_ID=peer0.distributor.coedinus.com
+      - CORE_PEER_ADDRESS=peer0.distributor.coedinus.com:11051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:11051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.distributor.coedinus.com:11052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.distributor.coedinus.com:11051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.distributor.coedinus.com:11051
+      - CORE_PEER_LOCALMSPID=DistributorMSP
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_TLS_CLIENTAUTHREQUIRED=false
+    volumes:
+      - /var/run/:/host/var/run/
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/peerOrganizations/distributor.coedinus.com/peers/peer0.distributor.coedinus.com/msp:/etc/hyperledger/fabric/msp
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/peerOrganizations/distributor.coedinus.com/peers/peer0.distributor.coedinus.com/tls:/etc/hyperledger/fabric/tls
+      - peer0distributorcoedinuscom:/var/hyperledger/production
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 11051:11051
+    networks:
+      test:
+        aliases:
+          - peer0.distributor.coedinus.com
+
+  peer0retailercoedinuscom:
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == worker3
+    container_name: peer0.retailer.coedinus.com
+    image: hyperledger/fabric-peer:2.3
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      # the following setting starts chaincode containers on the same
+      # bridge network as the peers
+      # https://docs.docker.com/compose/networking/
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=test
+      - FABRIC_LOGGING_SPEC=INFO
+      #- FABRIC_LOGGING_SPEC=DEBUG
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/fabric/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
+      # Peer specific variabes
+      - CORE_PEER_ID=peer0.retailer.coedinus.com
+      - CORE_PEER_ADDRESS=peer0.retailer.coedinus.com:13051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:13051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.retailer.coedinus.com:13052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:13052
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.retailer.coedinus.com:13051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.retailer.coedinus.com:13051
+      - CORE_PEER_LOCALMSPID=RetailerMSP
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_TLS_CLIENTAUTHREQUIRED=false
+    volumes:
+      - /var/run/:/host/var/run/
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/peerOrganizations/retailer.coedinus.com/peers/peer0.retailer.coedinus.com/msp:/etc/hyperledger/fabric/msp
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations/peerOrganizations/retailer.coedinus.com/peers/peer0.retailer.coedinus.com/tls:/etc/hyperledger/fabric/tls
+      - peer0retailercoedinuscom:/var/hyperledger/production
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    ports:
+      - 13051:13051
+    networks:
+      test:
+        aliases:
+          - peer0.retailer.coedinus.com
