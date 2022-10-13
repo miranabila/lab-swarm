@@ -366,7 +366,7 @@ peer0retailercoedinuscom:
       placement:
         constraints:
           - node.labels.name == worker3
-    container_name: peer0.distributor.coedinus.com
+    container_name: peer0.retailer.coedinus.com
     image: hyperledger/fabric-peer:2.3
     environment:
       #Generic peer variables
