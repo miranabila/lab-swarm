@@ -361,12 +361,12 @@ services:
         aliases:
           - peer0.distributor.coedinus.com
 
-  peer0retailercoedinuscom:
+peer0retailercoedinuscom:
     deploy:
       placement:
         constraints:
           - node.labels.name == worker3
-    container_name: peer0.retailer.coedinus.com
+    container_name: peer0.distributor.coedinus.com
     image: hyperledger/fabric-peer:2.3
     environment:
       #Generic peer variables
@@ -408,3 +408,4 @@ services:
       test:
         aliases:
           - peer0.retailer.coedinus.com
+  
