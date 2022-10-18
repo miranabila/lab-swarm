@@ -156,7 +156,7 @@ function createPengepul() {
   { set +x; } 2>/dev/null
 
   cp ${PWD}/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.pengepul.coedinus.com/tls/tlscacerts/* ${PWD}/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.pengepul.coedinus.com/tls/ca.crt
-  cp ${PWD}/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.pengepul.coedinus.com/tls/signcerts/* ${PWD}/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.opengepul.coedinus.com/tls/server.crt
+  cp ${PWD}/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.pengepul.coedinus.com/tls/signcerts/* ${PWD}/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.pengepul.coedinus.com/tls/server.crt
   cp ${PWD}/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.pengepul.coedinus.com/tls/keystore/* ${PWD}/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.pengepul.coedinus.com/tls/server.key
 
   mkdir -p ${PWD}/organizations/peerOrganizations/pengepul.coedinus.com/msp/tlscacerts
@@ -168,7 +168,7 @@ function createPengepul() {
   mkdir -p ${PWD}/organizations/peerOrganizations/pengepul.coedinus.com/ca
   cp ${PWD}/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.pengepul.coedinus.com/msp/cacerts/* ${PWD}/organizations/peerOrganizations/pengepul.coedinus.com/ca/ca.pengepul.coedinus.com-cert.pem
 
-  mkdir -p organizations/peerOrganizations/opengepul.coedinus.com/users
+  mkdir -p organizations/peerOrganizations/pengepul.coedinus.com/users
   mkdir -p organizations/peerOrganizations/pengepul.coedinus.com/users/User1@pengepul.coedinus.com
 
   infoln "Generate the user msp"
