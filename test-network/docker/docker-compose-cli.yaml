@@ -1,0 +1,164 @@
+version: "3"
+
+networks:
+  test:
+    external:
+      name: test
+
+services:
+  clipetani:
+    container_name: cli
+    image: hyperledger/fabric-tools:2.3
+    tty: true
+    stdin_open: true
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == manager
+    environment:
+      - SYS_CHANNEL=system-channel
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=DEBUG
+      - ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/coedinus.com/orderers/orderer.coedinus.com/msp/tlscacerts/tlsca.coedinus.com-cert.pem
+      # - FABRIC_LOGGING_SPEC=INFO
+      - CC_PATH=/opt/gopath/src/github.com/chaincode
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=test
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.petani.coedinus.com:7051
+      - CORE_PEER_LOCALMSPID=PetaniMSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/petani.coedinus.com/peers/peer0.petani.coedinus.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/petani.coedinus.com/peers/peer0.petani.coedinus.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/petani.coedinus.com/peers/peer0.petani.coedinus.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/petani.coedinus.com/users/Admin@petani.coedinus.com/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+      - /var/run/:/host/var/run/
+      - /home/ubuntu/hlf-docker-swarm/chaincode/:/opt/gopath/src/github.com/chaincode
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations:/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/
+      - /home/ubuntu/hlf-docker-swarm/test-network/scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+      - /home/ubuntu/hlf-docker-swarm/test-network/channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    
+    networks:
+      test:
+        aliases:
+          - clipetani.coedinus.com
+
+  clipengepul:
+    container_name: cli
+    image: hyperledger/fabric-tools:2.3
+    tty: true
+    stdin_open: true
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == worker1
+    environment:
+      - SYS_CHANNEL=system-channel
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=DEBUG
+      - ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/coedinus.com/orderers/orderer.coedinus.com/msp/tlscacerts/tlsca.coedinus.com-cert.pem
+      # - FABRIC_LOGGING_SPEC=INFO
+      - CC_PATH=/opt/gopath/src/github.com/chaincode
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=test
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.pengepul.coedinus.com:9051
+      - CORE_PEER_LOCALMSPID=PengepulMSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.pengepul.coedinus.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.pengepul.coedinus.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/pengepul.coedinus.com/peers/peer0.pengepul.coedinus.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/pengepul.coedinus.com/users/Admin@pengepul.coedinus.com/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+      - /var/run/:/host/var/run/
+      - /home/ubuntu/hlf-docker-swarm/chaincode/:/opt/gopath/src/github.com/chaincode
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations:/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/
+      - /home/ubuntu/hlf-docker-swarm/test-network/scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+      - /home/ubuntu/hlf-docker-swarm/test-network/channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    networks:
+      test:
+        aliases:
+          - clipengepul.coedinus.com
+
+  clidistributor:
+    container_name: cli
+    image: hyperledger/fabric-tools:2.3
+    tty: true
+    stdin_open: true
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == worker2
+    environment:
+      - SYS_CHANNEL=system-channel
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=DEBUG
+      - ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/coedinus.com/orderers/orderer.coedinus.com/msp/tlscacerts/tlsca.coedinus.com-cert.pem
+      # - FABRIC_LOGGING_SPEC=INFO
+      - CC_PATH=/opt/gopath/src/github.com/chaincode
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=test
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.distributor.coedinus.com:11051
+      - CORE_PEER_LOCALMSPID=DistributorMSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/distributor.coedinus.com/peers/peer0.distributor.coedinus.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/distributor.coedinus.com/peers/peer0.distributor.coedinus.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/distributor.coedinus.com/peers/peer0.distributor.coedinus.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/distributor.coedinus.com/users/Admin@distributor.coedinus.com/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+      - /var/run/:/host/var/run/
+      - /home/ubuntu/hlf-docker-swarm/chaincode/:/opt/gopath/src/github.com/chaincode
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations:/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/
+      - /home/ubuntu/hlf-docker-swarm/test-network/scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+      - /home/ubuntu/hlf-docker-swarm/test-network/channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    networks:
+      test:
+        aliases:
+          - clidistributor.coedinus.com
+
+  cliretailer:
+    container_name: cli
+    image: hyperledger/fabric-tools:2.3
+    tty: true
+    stdin_open: true
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == worker3
+    environment:
+      - SYS_CHANNEL=system-channel
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=DEBUG
+      - ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/coedinus.com/orderers/orderer.coedinus.com/msp/tlscacerts/tlsca.coedinus.com-cert.pem
+      # - FABRIC_LOGGING_SPEC=INFO
+      - CC_PATH=/opt/gopath/src/github.com/chaincode
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=test
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.retailer.coedinus.com:13051
+      - CORE_PEER_LOCALMSPID=RetailerMSP
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/retailer.coedinus.com/peers/peer0.retailer.coedinus.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/retailer.coedinus.com/peers/peer0.retailer.coedinus.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/retailer.coedinus.com/peers/peer0.retailer.coedinus.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/retailer.coedinus.com/users/Admin@retailer.coedinus.com/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+      - /var/run/:/host/var/run/
+      - /home/ubuntu/hlf-docker-swarm/chaincode/:/opt/gopath/src/github.com/chaincode
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations:/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/
+      - /home/ubuntu/hlf-docker-swarm/test-network/scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+      - /home/ubuntu/hlf-docker-swarm/test-network/channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    networks:
+      test:
+        aliases:
+          - cliretailer.coedinus.com
