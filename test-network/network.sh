@@ -371,9 +371,9 @@ COMPOSE_FILE_COUCH=docker/docker-compose-couch.yaml
 # certificate authorities compose file
 COMPOSE_FILE_CA=docker/docker-compose-ca.yaml
 # use this as the docker compose couch file for org3
-COMPOSE_FILE_COUCH_DISTRIBUTOR=addretailer/docker/docker-compose-couch-org3.yaml
+COMPOSE_FILE_COUCH_DISTRIBUTOR=addretailer/docker/docker-compose-couch-distributor.yaml
 # use this as the default docker-compose yaml definition for org3
-COMPOSE_FILE_ORG3=addOrg3/docker/docker-compose-org3.yaml
+COMPOSE_FILE_DISTRIBUTOR=adddistributor/docker/docker-compose-distributor.yaml
 #
 # use go as the default language for chaincode
 CC_SRC_LANGUAGE="go"
