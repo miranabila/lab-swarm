@@ -1,0 +1,35 @@
+---
+name: test-network-coe${ORG}
+version: 1.0.0
+client:
+  organization: Coe${ORG}
+  connection:
+    timeout:
+      peer:
+        endorser: '300'
+organizations:
+  Coe${ORG}:
+    mspid: Coe${ORG}${MSP}
+    peers:
+    - peer0.coe${ORG}.dinus.com
+    certificateAuthorities:
+    - ca.coe${ORG}.dinus.com
+peers:
+  peer0.coe${ORG}.dinus.com:
+    url: grpcs://peer0.coe${ORG}.dinus.com:${P0PORT}
+    tlsCACerts:
+      pem: |
+          ${PEERPEM}
+    grpcOptions:
+      ssl-target-name-override: peer0.coe${ORG}.dinus.com
+      hostnameOverride: peer0.coe${ORG}.dinus.com
+certificateAuthorities:
+  ca.coe${ORG}.dinus.com:
+    url: https://ca.coe${ORG}.dinus.comt:${CAPORT}
+    caName: ca-coe${ORG}
+    tlsCACerts:
+      pem: 
+        - |
+          ${CAPEM}
+    httpOptions:
+      verify: false

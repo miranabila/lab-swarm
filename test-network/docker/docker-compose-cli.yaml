@@ -1,0 +1,164 @@
+version: "3"
+
+networks:
+  test:
+    external:
+      name: test
+
+services:
+  cliCoe1:
+    container_name: cli
+    image: hyperledger/fabric-tools:2.3
+    tty: true
+    stdin_open: true
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == manager
+    environment:
+      - SYS_CHANNEL=system-channel
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=DEBUG
+      - ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/dinus.com/orderers/orderer.dinus.com/msp/tlscacerts/tlsca.dinus.com-cert.pem
+      # - FABRIC_LOGGING_SPEC=INFO
+      - CC_PATH=/opt/gopath/src/github.com/chaincode
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=test
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.coe1.dinus.com:7051
+      - CORE_PEER_LOCALMSPID=Coe1Petani
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe1.dinus.com/peers/peer0.coe1.dinus.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe1.dinus.com/peers/peer0.coe1.dinus.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe1.dinus.com/peers/peer0.coe1.dinus.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe1.dinus.com/users/Admin@coe1.dinus.com/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+      - /var/run/:/host/var/run/
+      - /home/ubuntu/hlf-docker-swarm/chaincode/:/opt/gopath/src/github.com/chaincode
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations:/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/
+      - /home/ubuntu/hlf-docker-swarm/test-network/scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+      - /home/ubuntu/hlf-docker-swarm/test-network/channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    
+    networks:
+      test:
+        aliases:
+          - cliCoe1.dinus.com
+
+  cliCoe2:
+    container_name: cli
+    image: hyperledger/fabric-tools:2.3
+    tty: true
+    stdin_open: true
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == worker1
+    environment:
+      - SYS_CHANNEL=system-channel
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=DEBUG
+      - ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/dinus.com/orderers/orderer.dinus.com/msp/tlscacerts/tlsca.dinus.com-cert.pem
+      # - FABRIC_LOGGING_SPEC=INFO
+      - CC_PATH=/opt/gopath/src/github.com/chaincode
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=test
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.coe2.dinus.com:9051
+      - CORE_PEER_LOCALMSPID=Coe2Pengepul
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe2.dinus.com/peers/peer0.coe2.dinus.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe2.dinus.com/peers/peer0.coe2.dinus.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe2.dinus.com/peers/peer0.coe2.dinus.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe2.dinus.com/users/Admin@coe2.dinus.com/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+      - /var/run/:/host/var/run/
+      - /home/ubuntu/hlf-docker-swarm/chaincode/:/opt/gopath/src/github.com/chaincode
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations:/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/
+      - /home/ubuntu/hlf-docker-swarm/test-network/scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+      - /home/ubuntu/hlf-docker-swarm/test-network/channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    networks:
+      test:
+        aliases:
+          - cliCoe2.dinus.com
+
+  cliCoe3:
+    container_name: cli
+    image: hyperledger/fabric-tools:2.3
+    tty: true
+    stdin_open: true
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == worker2
+    environment:
+      - SYS_CHANNEL=system-channel
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=DEBUG
+      - ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/dinus.com/orderers/orderer.dinus.com/msp/tlscacerts/tlsca.dinus.com-cert.pem
+      # - FABRIC_LOGGING_SPEC=INFO
+      - CC_PATH=/opt/gopath/src/github.com/chaincode
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=test
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.coe3.dinus.com:11051
+      - CORE_PEER_LOCALMSPID=Coe3Distributor
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe3.dinus.com/peers/peer0.coe3.dinus.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe3.dinus.com/peers/peer0.coe3.dinus.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe3.dinus.com/peers/peer0.coe3.dinus.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe3.dinus.com/users/Admin@coe3.dinus.com/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+      - /var/run/:/host/var/run/
+      - /home/ubuntu/hlf-docker-swarm/chaincode/:/opt/gopath/src/github.com/chaincode
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations:/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/
+      - /home/ubuntu/hlf-docker-swarm/test-network/scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+      - /home/ubuntu/hlf-docker-swarm/test-network/channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    networks:
+      test:
+        aliases:
+          - cliCoe3.dinus.com
+
+  cliCoe4:
+    container_name: cli
+    image: hyperledger/fabric-tools:2.3
+    tty: true
+    stdin_open: true
+    deploy:
+      placement:
+        constraints:
+          - node.labels.name == worker3
+    environment:
+      - SYS_CHANNEL=system-channel
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=DEBUG
+      - ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/dinus.com/orderers/orderer.dinus.com/msp/tlscacerts/tlsca.dinus.com-cert.pem
+      # - FABRIC_LOGGING_SPEC=INFO
+      - CC_PATH=/opt/gopath/src/github.com/chaincode
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=test
+      - CORE_PEER_ID=cli
+      - CORE_PEER_ADDRESS=peer0.coe4.dinus.com:13051
+      - CORE_PEER_LOCALMSPID=Coe4Retailer
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe4.dinus.com/peers/peer0.coe4.dinus.com/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe4.dinus.com/peers/peer0.coe4.dinus.com/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe4.dinus.com/peers/peer0.coe4.dinus.com/tls/ca.crt
+      - CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/coe4.dinus.com/users/Admin@coe4.dinus.com/msp
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: /bin/bash
+    volumes:
+      - /var/run/:/host/var/run/
+      - /home/ubuntu/hlf-docker-swarm/chaincode/:/opt/gopath/src/github.com/chaincode
+      - /home/ubuntu/hlf-docker-swarm/test-network/organizations:/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/
+      - /home/ubuntu/hlf-docker-swarm/test-network/scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+      - /home/ubuntu/hlf-docker-swarm/test-network/channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+    networks:
+      test:
+        aliases:
+          - cliCoe4.dinus.com
